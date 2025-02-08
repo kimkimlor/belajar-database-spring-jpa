@@ -26,6 +26,15 @@ public class CustomersService {
         return customersRepository.save(customer);
     }
 
+    public CustomersModel updateCustomer(Long id, String newName, String newEmail) {
+        CustomersModel customer = customersRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User tidak ditemukan"));
+
+        customer.setName(newName);
+        customer.setEmail(newEmail);
+        return customersRepository.save(customer); // Hibernate akan otomatis melakukan UPDATE
+    }
+
     public void deleteCutomer(Long id) {
         customersRepository.deleteById(id);
     }
