@@ -27,12 +27,16 @@ public class CustomersService {
     }
 
     public CustomersModel updateCustomer(Long id, String newName, String newEmail) {
-        CustomersModel customer = customersRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User tidak ditemukan"));
+        Optional<CustomersModel> optionalCustomer = customersRepository.findById(id);
 
-        customer.setName(newName);
-        customer.setEmail(newEmail);
-        return customersRepository.save(customer); // Hibernate akan otomatis melakukan UPDATE
+        if (optionalCustomer.isPresent()) {
+            CustomersModel customer = optionalCustomer.get();
+            customer.setName(newName);
+            customer.setEmail(newEmail);
+            return customersRepository.save(customer); // Hibernate akan otomatis melakukan UPDATE
+        } else {
+            throw new RuntimeException("User dengan ID " + id + " tidak ditemukan.");
+        }
     }
 
     public void deleteCutomer(Long id) {

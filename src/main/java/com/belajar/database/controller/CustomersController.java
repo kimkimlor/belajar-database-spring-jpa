@@ -1,15 +1,18 @@
 package com.belajar.database.controller;
 
 import com.belajar.database.model.CustomersModel;
+import com.belajar.database.repository.CustomersRepository;
 import com.belajar.database.services.CustomersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
-@RestController
+@Controller
 @RequestMapping("/api/customers")
 public class CustomersController {
 
@@ -17,8 +20,10 @@ public class CustomersController {
     private CustomersService cs;
 
     @GetMapping
-    public List<CustomersModel> getAllCustomers() {
-        return cs.getAllCustomers();
+    public String getAllCustomers(Model model) {
+        List<CustomersModel> customersList = cs.getAllCustomers();
+        model.addAttribute("allCustomers", customersList);
+        return "index"; // Ini akan mencari file src/main/resources/templates/index.html
     }
 
     @GetMapping("/{id}")
