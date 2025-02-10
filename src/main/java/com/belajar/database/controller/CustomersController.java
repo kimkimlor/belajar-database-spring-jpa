@@ -47,6 +47,11 @@ public class CustomersController {
 
     @DeleteMapping("/{id}")
     public void deleteCustomer(@PathVariable Long id) {
-        cs.deleteCutomer(id);
+        cs.deleteCustomer(id);
+    }
+
+    @GetMapping("/login")
+    public String loginPage() {
+        return "login"; // Mengembalikan template login.html
     }
 }

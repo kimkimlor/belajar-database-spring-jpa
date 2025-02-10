@@ -1,6 +1,10 @@
 package com.belajar.database.model;
 
 import jakarta.persistence.*;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.GrantedAuthority;
+
+import java.util.Collection;
 
 @Entity
 @Table(name = "customers")
@@ -14,6 +18,9 @@ public class CustomersModel {
 
     @Column(unique = true, nullable = false)
     private String email;
+
+    @Column(unique = true)
+    private String password;
 
     // constructor
     public CustomersModel() {}
